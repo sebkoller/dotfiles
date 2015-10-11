@@ -75,11 +75,14 @@ set ttymouse=sgr				" properly recognize mouse clicks
 nnoremap <leader>h :nohlsearch<CR>
 nnoremap <leader>n :NERDTreeToggle<CR>
 
-" enter new line without going into insert mode
-nmap <S-Enter> O<Esc>j					" enter a line above on shift-enter
-nmap <CR> o<Esc>k						" enter a line beneath on enter
-nnoremap k gk							" move through long lines up
-nnoremap j gj							" move through long lines down
+" enter a line above on shift-enter
+nmap <S-Enter> O<Esc>j
+" enter a line beneath on enter
+nmap <CR> o<Esc>k
+" move through long lines up
+nnoremap k gk
+" move through long lines down
+nnoremap j gj
 
 " syntastic
 set statusline+=%#warningmsg#
