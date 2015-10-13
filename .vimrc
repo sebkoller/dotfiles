@@ -83,6 +83,8 @@ nmap <CR> o<Esc>k
 nnoremap k gk
 " move through long lines down
 nnoremap j gj
+" auto close brackets on open bracket - enter
+inoremap {<CR>  {<CR>}<Esc>O
 
 " syntastic
 set statusline+=%#warningmsg#
