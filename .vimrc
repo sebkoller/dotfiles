@@ -2,15 +2,15 @@ set nocompatible              " be VIMproved, required
 filetype off                  " required
 let mapleader = " "
 
-" set the runtime path to include Vundle and initialize
+" -------------
+" Vundle config
+" -------------
+
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-" Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
@@ -26,10 +26,9 @@ Plugin 'groenewege/vim-less'
 Plugin 'evidens/vim-twig'
 Plugin 'StanAngeloff/php.vim'
 Plugin 'kylef/apiblueprint.vim'
+Plugin 'mbbill/undotree'
 
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
+call vundle#end()
 " filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 filetype plugin on
@@ -43,6 +42,10 @@ filetype plugin on
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 "
+
+" ----------------
+" general settings
+" ----------------
 
 syntax on						" syntax highlighting
 set number						" enable line numbers
@@ -63,17 +66,23 @@ set scrolloff=5
 set splitbelow					" open horizontal split windows below
 set splitright					" open vertical splits to the right
 
-" ---------- terminal specific ----------
+" -----------------
+" terminal specific
+" -----------------
 set mouse=a						" mouse navigation
 set ttymouse=sgr				" properly recognize mouse clicks
 
 " opening split windows below/on the right side
 
-" ---------- custom remapping ----------
+" ---------------
+" custom key maps
+" ---------------
 
 " with leader key
-nnoremap <leader>h :nohlsearch<CR>
-nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <silent><leader>h :nohlsearch<CR>
+nnoremap <silent><leader>n :NERDTreeToggle<CR>
+nnoremap <silent><leader>r :set relativenumber!<cr>
+nnoremap <silent><leader>u :UndotreeToggle<CR>
 
 " enter a line above on shift-enter
 nmap <S-Enter> O<Esc>j
@@ -144,7 +153,15 @@ endfun
 
 " highlight the cursorline for the active window
 augroup CursorLine
-  au!
-  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  au WinLeave * setlocal nocursorline
+	au!
+	au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+	au WinLeave * setlocal nocursorline
 augroup END
+
+" set a dedicated directory for the undo history
+if has('persistent_undo')
+	let undo_directory = expand('$HOME/.vim/undo')
+	call system('mkdir ' . undo_directory)
+	set undofile
+	let &undodir = undo_directory
+endif
