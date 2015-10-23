@@ -65,6 +65,7 @@ set softtabstop=4
 set scrolloff=5
 set splitbelow					" open horizontal split windows below
 set splitright					" open vertical splits to the right
+set autoread					" load disk changes if there are no unsaved changes
 
 " -----------------
 " terminal specific
@@ -83,6 +84,7 @@ nnoremap <silent><leader>h :nohlsearch<CR>
 nnoremap <silent><leader>n :NERDTreeToggle<CR>
 nnoremap <silent><leader>r :set relativenumber!<cr>
 nnoremap <silent><leader>u :UndotreeToggle<CR>
+nnoremap <leader>c :%s///gn <CR>
 
 " enter a line above on shift-enter
 nmap <S-Enter> O<Esc>j
