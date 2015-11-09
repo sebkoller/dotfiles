@@ -14,19 +14,26 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
-" Plugin 'marijnh/tern_for_vim'
+Plugin 'marijnh/tern_for_vim'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/syntastic'
-Plugin 'morhetz/gruvbox'
 Plugin 'killerx/vim-javascript-syntax'
 Plugin 'groenewege/vim-less'
-Plugin 'evidens/vim-twig'
+" Plugin 'evidens/vim-twig' discontinued. I should just use jinja highlighting
 Plugin 'StanAngeloff/php.vim'
 Plugin 'kylef/apiblueprint.vim'
 Plugin 'mbbill/undotree'
+Plugin 'junegunn/vim-peekaboo'
+
+" -------------
+" Color schemes
+" -------------
+Plugin 'morhetz/gruvbox'
+Plugin 'tomasr/molokai'
+Plugin 'zenorocha/dracula-theme', {'rtp': 'vim/'}
 
 call vundle#end()
 " filetype plugin indent on    " required
@@ -85,6 +92,7 @@ nnoremap <silent><leader>n :NERDTreeToggle<CR>
 nnoremap <silent><leader>r :set relativenumber!<cr>
 nnoremap <silent><leader>u :UndotreeToggle<CR>
 nnoremap <leader>c :%s///gn <CR>
+set pastetoggle=<leader>p
 
 " enter a line above on shift-enter
 nmap <S-Enter> O<Esc>j
