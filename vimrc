@@ -74,6 +74,8 @@ set scrolloff=5
 set splitbelow					" open horizontal split windows below
 set splitright					" open vertical splits to the right
 set autoread					" load disk changes if there are no unsaved changes
+set ttyfast
+set lazyredraw
 
 " -----------------
 " terminal specific
