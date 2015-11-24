@@ -1,0 +1,8 @@
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+nnoremap <silent><space>h :nohlsearch<CR>
+nnoremap <leader>c :%s///gn <CR>
+
