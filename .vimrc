@@ -27,6 +27,7 @@ Plugin 'StanAngeloff/php.vim'
 Plugin 'kylef/apiblueprint.vim'
 Plugin 'mbbill/undotree'
 Plugin 'junegunn/vim-peekaboo'
+Plugin 'nathanaelkane/vim-indent-guides'
 
 " -------------
 " Color schemes
@@ -109,6 +110,9 @@ inoremap {<CR>  {<CR>}<Esc>O
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+
+" NERDTree
+let NERDTreeIgnore = ['\.pyc$']  " ignore compiled python files
 
 " You complete me <3
 let g:ycm_autoclose_preview_window_after_insertion = 1
