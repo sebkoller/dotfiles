@@ -83,7 +83,14 @@ set lazyredraw
 set mouse=a						" mouse navigation
 set ttymouse=sgr				" properly recognize mouse clicks
 
-" opening split windows below/on the right side
+" -----------------------
+" hard to type characters
+" -----------------------
+iabbrev >> →
+iabbrev << ←
+iabbrev ^^ ↑
+iabbrev VV ↓
+iabbrev aa λ
 
 " ---------------
 " custom key maps
