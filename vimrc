@@ -37,9 +37,9 @@ Plugin 'tomasr/molokai'
 Plugin 'zenorocha/dracula-theme', {'rtp': 'vim/'}
 
 call vundle#end()
-" filetype plugin indent on    " required
+filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
-filetype plugin on
+"filetype plugin on
 "
 " Brief help
 " :PluginList       - lists configured plugins
