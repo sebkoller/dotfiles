@@ -91,6 +91,7 @@ iabbrev << ←
 iabbrev ^^ ↑
 iabbrev VV ↓
 iabbrev aa λ
+iabbrev yy ✓
 
 " ---------------
 " custom key maps
