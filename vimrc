@@ -138,7 +138,7 @@ let g:syntastic_python_flake8_args='--ignore=W191,E501'		" allow tabs & ignore l
 
 
 " Demandware syntax highlighting
-au BufEnter *.isml set filetype=html
+au BufRead,BufNewFile *.isml set filetype=html
 au BufRead,BufNewFile *.ds set filetype=dwscript
 au! Syntax dwscript source ~/.vim/bundle/vim-javascript-syntax/syntax/dwscript.vim
 
