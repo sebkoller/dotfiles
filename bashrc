@@ -21,23 +21,36 @@ export VISUAL=vim
 export EDITOR=vim
 export LANG=en_US.UTF-8
 
+
+# Bash config
+# ----------------------------------------------------------
+
+### vim all the way
+set -o vi
+bind 'set completion-ignore-case on'
+
 # Aliases
 # ----------------------------------------------------------
 
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias l='ls -CF'
 alias ll='ls -l'
 alias la='ls -A --group-directories-first'
 alias lla='ls -lA'
 alias which='type -p'
+alias vimrc='vim ~/.vimrc'
+alias bashrc='vim ~/.bashrc'
+alias git-append='git commit --amend --no-edit'
+alias gitp='git add -p'
 
 ### Colored ls
 if [ -x /usr/bin/dircolors ]; then
   eval "`dircolors -b`"
   alias ls='ls --color=auto'
   alias grep='grep --color=auto'
-elif [ "$PLATFORM" = Darwin ]; then
+elif [ "$PLATFORM" = "Darwin" ]; then
   alias ls='ls -G'
 fi
 
@@ -50,3 +63,40 @@ fi
 if [ -f ~/.goodies/promptline/shell_prompt.sh ]; then
 	. ~/.goodies/promptline/shell_prompt.sh
 fi
+
+if [ -d ~/.vim/plugged/gruvbox ]; then
+  if [ "$PLATFORM" = "Darwin" ]; then
+    source /Users/skoller/.vim/plugged/gruvbox/gruvbox_256palette_osx.sh
+  else
+    source /Users/skoller/.vim/plugged/gruvbox/gruvbox_256palette.sh
+  fi
+fi
+
+
+# OS X specific
+# ----------------------------------------------------------
+
+if [ "$PLATFORM" = "Darwin" ]; then
+
+  function clip()
+  {
+    [ -t 0 ] && pbpaste || pbcopy;
+  }
+
+  ### Homebrew stuff
+  export PATH="/usr/local/sbin:$PATH"
+
+  if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+  fi
+
+fi
+
+function count()
+{
+  if [ "$1" ]; then
+    find . -maxdepth 1 -name "*$1*" | wc -l;
+  else
+    echo "usage: count [pattern]";
+  fi
+}
