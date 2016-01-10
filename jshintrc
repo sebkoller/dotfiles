@@ -3,5 +3,6 @@
 	"laxbreak"  : true,
 	"browser"   : true,
 	"white"     : true,
-	"latedef"   : "nofunc"
+	"latedef"   : "nofunc",
+	"esnext"    : "true"
 }
