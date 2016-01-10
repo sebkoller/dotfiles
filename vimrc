@@ -1,55 +1,52 @@
 set nocompatible              " be VIMproved, required
-filetype off                  " required
 let mapleader = " "
 
-" -------------
-" Vundle config
-" -------------
+if has('vim_starting')
+  set rtp+=~/.vim/plugged/vim-plug
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+  if !isdirectory(expand('~/.vim/plugged/vim-plug'))
+    echo 'install vim-plug...'
+    call system('mkdir -p ~/.vim/plugged/vim-plug')
+    call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/plugged/vim-plug/autoload')
+  end
+endif
 
-Plugin 'gmarik/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'bling/vim-airline'
-Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
-Plugin 'marijnh/tern_for_vim'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-commentary'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'scrooloose/syntastic'
-Plugin 'killerx/vim-javascript-syntax'
-Plugin 'groenewege/vim-less'
-" Plugin 'evidens/vim-twig' discontinued. I should just use jinja highlighting
-Plugin 'StanAngeloff/php.vim'
-Plugin 'kylef/apiblueprint.vim'
-Plugin 'mbbill/undotree'
-Plugin 'junegunn/vim-peekaboo'
-Plugin 'nathanaelkane/vim-indent-guides'
+call plug#begin('~/.vim/plugged')
 
-" -------------
-" Color schemes
-" -------------
-Plugin 'morhetz/gruvbox'
-Plugin 'tomasr/molokai'
-Plugin 'zenorocha/dracula-theme', {'rtp': 'vim/'}
+  Plug 'junegunn/vim-plug',
+          \ {'dir': '~/.vim/plugged/vim-plug/autoload'}
 
-call vundle#end()
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-"
+  Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+  Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+  Plug 'junegunn/vim-peekaboo'
+  Plug 'bling/vim-airline'
+  Plug 'kien/ctrlp.vim'
+  Plug 'nathanaelkane/vim-indent-guides'
+
+  Plug 'Valloric/YouCompleteMe', { 'do' : 'python2 ./install.py --clang-comleter' }
+  Plug 'scrooloose/syntastic'
+  Plug 'killerx/vim-javascript-syntax'
+  Plug 'groenewege/vim-less', { 'for': 'less' }
+  Plug 'marijnh/tern_for_vim', { 'do': 'npm install', 'for': 'javascript' }
+  " Plug 'jelera/vim-javascript-syntax'
+  Plug 'StanAngeloff/php.vim', { 'for': 'php' }
+  Plug 'kylef/apiblueprint.vim'
+
+  Plug 'Lokaltog/vim-easymotion'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-commentary'
+  Plug 'terryma/vim-multiple-cursors'
+  " Plug 'evidens/vim-twig' discontinued. I should just use jinja highlighting
+  " load promptline on demand via a function call (defined further down)
+  Plug 'edkolev/promptline.vim', { 'on': [] }
+  " -------------
+  " Color schemes
+  " -------------
+  Plug 'morhetz/gruvbox'
+  Plug 'tomasr/molokai'
+  Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
+
+call plug#end()
 
 " ----------------
 " general settings
@@ -105,13 +102,10 @@ nnoremap <silent><leader>u :UndotreeToggle<CR>
 nnoremap <leader>c :%s///gn <CR>
 set pastetoggle=<leader>p
 
-" enter a line above on shift-enter
-nmap <S-Enter> O<Esc>j
-" enter a line beneath on enter
-nmap <CR> o<Esc>k
-" move through long lines up
+" yield to the end of line
+noremap Y y$
+" move through long lines up and down
 nnoremap k gk
-" move through long lines down
 nnoremap j gj
 " auto close brackets on open bracket - enter
 inoremap {<CR>  {<CR>}<Esc>O
@@ -145,9 +139,11 @@ au! Syntax dwscript source ~/.vim/bundle/vim-javascript-syntax/syntax/dwscript.v
 
 let g:airline_powerline_fonts=1
 if has("gui_running")
-    if has("gui_macvim")
-        set guifont=Meslo\ LG\ S\ Regular\ for\ Powerline:h11
-    endif
+  if has("gui_macvim")
+    set guifont=Meslo\ LG\ S\ Regular\ for\ Powerline:h11
+  else
+	set guifont=Meslo\ LG\ S\ for\ Powerline\ 9.5
+  endif
 endif
 
 
@@ -161,31 +157,52 @@ set fileencodings=utf-8
 " alias for JSON formatting via python
 com! FormatJSON %!python -m json.tool
 
-" alias for reloading the conf
-com! ReloadConfig :so $MYVIMRC
+" alias for reloading the config
+com! ReloadConfig :so $MYVIMRC | AirlineRefresh
+
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+com! SudoWrite %!sudo tee > /dev/null %
+
 
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
-
 " remove trailing whitespaces on :w, save cursor position
 fun! <SID>StripTrailingWhitespaces()
-	let l = line(".")
-	let c = col(".")
-	%s/\s\+$//e
-	call cursor(l, c)
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  call cursor(l, c)
 endfun
 
 " highlight the cursorline for the active window
 augroup CursorLine
-	au!
-	au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-	au WinLeave * setlocal nocursorline
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
 augroup END
 
 " set a dedicated directory for the undo history
 if has('persistent_undo')
-	let undo_directory = expand('$HOME/.vim/undo')
-	call system('mkdir ' . undo_directory)
-	set undofile
-	let &undodir = undo_directory
+  let undo_directory = expand('$HOME/.vim/undo')
+  call system('mkdir ' . undo_directory)
+  set undofile
+  let &undodir = undo_directory
 endif
+
+" Generate a shell prompt that uses the same theme as the vim airline
+com! PromptlineBuilder :call <SID>PromptlineBuilder()
+fun! <SID>PromptlineBuilder()
+  call plug#load('promptline.vim')
+  let g:promptline_preset = {
+    \'a' : [promptline#slices#host({ 'only_if_ssh': 1 }) ],
+    \'b' : [promptline#slices#user() ],
+    \'c' : [promptline#slices#cwd({ 'dir_limit': 2 }) ],
+    \'y' : [promptline#slices#vcs_branch() ],
+    \'warn' : [promptline#slices#last_exit_code() ]}
+  let dir = '~/.goodies/promptline/'
+  let file = 'shell_prompt.sh'
+  let theme = 'airline'
+  call system('mkdir -p ' . dir)
+  execute 'PromptlineSnapshot! ' . dir . file . ' ' . theme
+  echo 'Created ' . file . ' in ' . dir . ' using the '. theme . ' theme'
+endfun
