@@ -115,7 +115,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-" NERDTree
+let g:EasyMotion_smartcase = 1
 let NERDTreeIgnore = ['\.pyc$']  " ignore compiled python files
 
 " You complete me <3
