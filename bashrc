@@ -29,6 +29,32 @@ export LANG=en_US.UTF-8
 set -o vi
 bind 'set completion-ignore-case on'
 
+
+# OS X specific
+# ----------------------------------------------------------
+
+if [ "$PLATFORM" = "Darwin" ]; then
+
+  function clip()
+  {
+    [ -t 0 ] && pbpaste || pbcopy;
+  }
+
+  ### Homebrew stuff
+  export PATH="/usr/local/sbin:$PATH"
+
+  if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+  fi
+
+  # coreutils ls' default colors don't look as nice
+  # I'll have to check how to get the BSD ls colors back
+  # MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+  # PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
+fi
+
+
 # Aliases
 # ----------------------------------------------------------
 
@@ -52,6 +78,7 @@ if [ -x /usr/bin/dircolors ]; then
   alias grep='grep --color=auto'
 elif [ "$PLATFORM" = "Darwin" ]; then
   alias ls='ls -G'
+  alias la='ls -A'
 fi
 
 
@@ -73,24 +100,6 @@ if [ -d ~/.vim/plugged/gruvbox ]; then
 fi
 
 
-# OS X specific
-# ----------------------------------------------------------
-
-if [ "$PLATFORM" = "Darwin" ]; then
-
-  function clip()
-  {
-    [ -t 0 ] && pbpaste || pbcopy;
-  }
-
-  ### Homebrew stuff
-  export PATH="/usr/local/sbin:$PATH"
-
-  if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    . $(brew --prefix)/etc/bash_completion
-  fi
-
-fi
 
 function count()
 {
