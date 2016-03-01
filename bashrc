@@ -100,6 +100,12 @@ if [ -d ~/.vim/plugged/gruvbox ]; then
 fi
 
 
+###
+if [ -f $HOME/.pythonrc ]; then
+	export PYTHONSTARTUP=$HOME/.pythonrc
+fi
+
+
 
 function count()
 {
