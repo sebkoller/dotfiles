@@ -19,13 +19,14 @@ call plug#begin('~/.vim/plugged')
   Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
   Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
   Plug 'junegunn/vim-peekaboo'
-  Plug 'bling/vim-airline'
+  Plug 'vim-airline/vim-airline'
   Plug 'kien/ctrlp.vim'
   Plug 'nathanaelkane/vim-indent-guides'
 
   Plug 'Valloric/YouCompleteMe', { 'do' : 'python2 ./install.py --clang-comleter' }
   Plug 'scrooloose/syntastic'
-  Plug 'killerx/vim-javascript-syntax'
+  Plug 'killerx/vim-javascript-syntax', { 'for': 'dwscript' }
+  Plug 'othree/yajs.vim', { 'for': 'javascript' }
   Plug 'groenewege/vim-less', { 'for': 'less' }
   Plug 'marijnh/tern_for_vim', { 'do': 'npm install', 'for': 'javascript' }
   " Plug 'jelera/vim-javascript-syntax'
@@ -36,6 +37,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-commentary'
   Plug 'terryma/vim-multiple-cursors'
+  Plug 'wellle/targets.vim'
   " Plug 'evidens/vim-twig' discontinued. I should just use jinja highlighting
   " load promptline on demand via a function call (defined further down)
   Plug 'edkolev/promptline.vim', { 'on': [] }
@@ -89,18 +91,18 @@ iabbrev ^^ ↑
 iabbrev VV ↓
 iabbrev aa λ
 iabbrev yy ✓
+iabbrev xx ✘
 
 " ---------------
 " custom key maps
 " ---------------
 
 " with leader key
-nnoremap <silent><leader>h :nohlsearch<CR>
+nnoremap <silent><leader>s :nohlsearch<CR>
 nnoremap <silent><leader>n :NERDTreeToggle<CR>
 nnoremap <silent><leader>r :set relativenumber!<cr>
 nnoremap <silent><leader>u :UndotreeToggle<CR>
 nnoremap <leader>c :%s///gn <CR>
-set pastetoggle=<leader>p
 
 " yield to the end of line
 noremap Y y$
@@ -109,6 +111,7 @@ nnoremap k gk
 nnoremap j gj
 " auto close brackets on open bracket - enter
 inoremap {<CR>  {<CR>}<Esc>O
+
 
 " syntastic
 set statusline+=%#warningmsg#
@@ -134,8 +137,24 @@ let g:syntastic_python_flake8_args='--ignore=W191,E501'		" allow tabs & ignore l
 " Demandware syntax highlighting
 au BufRead,BufNewFile *.isml set filetype=html
 au BufRead,BufNewFile *.ds set filetype=dwscript
-au! Syntax dwscript source ~/.vim/bundle/vim-javascript-syntax/syntax/dwscript.vim
+" au! Syntax dwscript source ~/.vim/plugged/vim-javascript-syntax/syntax/dwscript.vim
 
+"
+" ---------------------
+"  working with buffers
+" ---------------------
+
+set hidden							" don't force changes to be saved
+nmap <leader>t :enew<cr>|			" open a new buffer
+nmap <leader>l :bnext<CR>|			" Move to the next buffer
+nmap <leader>h :bprevious<CR>|		" Move to the previous buffer
+nmap <leader>bq :bp <BAR> bd #<CR>| " Close the current buffer and move to the previous one
+nmap <leader>bd :bp <BAR> bd #<CR>| " Close the current buffer and move to the previous one
+nmap <leader>bl :ls<CR>|			" Show all open buffers and their status
+
+
+let g:airline#extensions#tabline#enabled = 1		" Enable the list of buffers
+let g:airline#extensions#tabline#fnamemod = ':t'	" Show just the filename
 
 let g:airline_powerline_fonts=1
 if has("gui_running")
