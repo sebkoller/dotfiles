@@ -14,7 +14,7 @@ export HISTCONTROL=ignoredups:erasedups
 export HISTSIZE=1000000
 export HISTFILESIZE=1000000
 shopt -s histappend
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+# export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 ### Global
 export VISUAL=vim
@@ -72,6 +72,7 @@ alias git-append='git commit --amend --no-edit'
 alias gitp='git add -p'
 alias g='git'
 alias grep='grep -n --color=auto'
+alias ccat='pygmentize -g'
 
 ### Colored ls
 if [ -x /usr/bin/dircolors ]; then

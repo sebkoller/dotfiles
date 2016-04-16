@@ -23,13 +23,13 @@ call plug#begin('~/.vim/plugged')
   Plug 'kien/ctrlp.vim'
   Plug 'nathanaelkane/vim-indent-guides'
 
-  Plug 'Valloric/YouCompleteMe', { 'do' : 'python2 ./install.py --clang-comleter' }
+  Plug 'Valloric/YouCompleteMe', { 'do' : './install.py --clang-completer' }
   Plug 'scrooloose/syntastic'
-  Plug 'killerx/vim-javascript-syntax', { 'for': 'dwscript' }
+  Plug 'killerx/vim-javascript-syntax', { 'as': 'vim-dwscript-syntax', 'for': 'dwscript' }
   Plug 'othree/yajs.vim', { 'for': 'javascript' }
   Plug 'groenewege/vim-less', { 'for': 'less' }
   Plug 'marijnh/tern_for_vim', { 'do': 'npm install', 'for': 'javascript' }
-  " Plug 'jelera/vim-javascript-syntax'
+  " Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
   Plug 'kylef/apiblueprint.vim'
 
@@ -38,6 +38,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-commentary'
   Plug 'terryma/vim-multiple-cursors'
   Plug 'wellle/targets.vim'
+  Plug 'unblevable/quick-scope'
   " Plug 'evidens/vim-twig' discontinued. I should just use jinja highlighting
   " load promptline on demand via a function call (defined further down)
   Plug 'edkolev/promptline.vim', { 'on': [] }
@@ -112,6 +113,9 @@ nnoremap j gj
 " auto close brackets on open bracket - enter
 inoremap {<CR>  {<CR>}<Esc>O
 
+" search for visual selection
+vnoremap // y/<C-R>"<CR>
+
 
 " syntastic
 set statusline+=%#warningmsg#
@@ -120,6 +124,9 @@ set statusline+=%*
 
 let g:EasyMotion_smartcase = 1
 let NERDTreeIgnore = ['\.pyc$']  " ignore compiled python files
+
+" quick scope
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " You complete me <3
 let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -130,14 +137,36 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_loc_list_height = 8
 let g:syntastic_ignore_files = ['*.isml']					" doesnt seem to work
-let g:syntastic_html_checkers=['']							" disable html checkers
+" let g:syntastic_html_checkers=['']							" disable html checkers
+let g:syntastic_html_tidy_empty_tags = ['isset', 'iselse', 'isprint', 'isbreak']
+let g:syntastic_html_tidy_blocklevel_tags = ['span', 'tbody', 'isif', 'iselse', 'isprint', 'isloop', 'isset', 'isinclude', 'isbreak', 'iscontinue', 'iscomment']
+let g:syntastic_html_tidy_ignore_errors = ['<isset> attribute "scope"', 'trimming empty']
 let g:syntastic_python_flake8_args='--ignore=W191,E501'		" allow tabs & ignore line lengths
+let g:syntastic_javascript_checkers = ['eslint']
+
+let g:html_indent_inctags = "isloop,isif"
 
 
 " Demandware syntax highlighting
 au BufRead,BufNewFile *.isml set filetype=html
 au BufRead,BufNewFile *.ds set filetype=dwscript
-" au! Syntax dwscript source ~/.vim/plugged/vim-javascript-syntax/syntax/dwscript.vim
+" au! Syntax dwscript source ~/.vim/plugged/vim-dwscript-syntax/syntax/dwscript.vim
+"
+
+
+iabbrev funciton function
+iabbrev functiton function
+iabbrev fucntion function
+iabbrev funtion function
+iabbrev erturn return
+iabbrev retunr return
+iabbrev reutrn return
+iabbrev reutn return
+iabbrev queyr query
+iabbrev htis this
+iabbrev foreahc foreach
+iabbrev forech foreach
+
 
 "
 " ---------------------
