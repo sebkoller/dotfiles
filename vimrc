@@ -39,6 +39,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'terryma/vim-multiple-cursors'
   Plug 'wellle/targets.vim'
   Plug 'unblevable/quick-scope'
+  Plug 'Glench/Vim-Jinja2-Syntax'
   " Plug 'evidens/vim-twig' discontinued. I should just use jinja highlighting
   " load promptline on demand via a function call (defined further down)
   Plug 'edkolev/promptline.vim', { 'on': [] }
@@ -139,12 +140,13 @@ let g:syntastic_loc_list_height = 8
 let g:syntastic_ignore_files = ['*.isml']					" doesnt seem to work
 " let g:syntastic_html_checkers=['']							" disable html checkers
 let g:syntastic_html_tidy_empty_tags = ['isset', 'iselse', 'isprint', 'isbreak']
-let g:syntastic_html_tidy_blocklevel_tags = ['span', 'tbody', 'isif', 'iselse', 'isprint', 'isloop', 'isset', 'isinclude', 'isbreak', 'iscontinue', 'iscomment']
+let g:syntastic_html_tidy_blocklevel_tags = ['span', 'tbody', 'isif', 'iselse', 'isprint', 'isloop', 'isset', 'isinclude', 'isbreak', 'iscontinue', 'iscomment', 'isdecorate', 'isreplace', 'isscript']
 let g:syntastic_html_tidy_ignore_errors = ['<isset> attribute "scope"', 'trimming empty']
 let g:syntastic_python_flake8_args='--ignore=W191,E501'		" allow tabs & ignore line lengths
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exec = 'eslint_d'
 
-let g:html_indent_inctags = "isloop,isif"
+let g:html_indent_inctags = "isloop,isif,isdecorate"
 
 
 " Demandware syntax highlighting
@@ -152,6 +154,7 @@ au BufRead,BufNewFile *.isml set filetype=html
 au BufRead,BufNewFile *.ds set filetype=dwscript
 " au! Syntax dwscript source ~/.vim/plugged/vim-dwscript-syntax/syntax/dwscript.vim
 "
+au BufRead,BufNewFile *.twig set filetype=jinja
 
 
 iabbrev funciton function

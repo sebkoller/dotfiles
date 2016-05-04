@@ -42,6 +42,7 @@ if [ "$PLATFORM" = "Darwin" ]; then
 
   ### Homebrew stuff
   export PATH="/usr/local/sbin:$PATH"
+  export HOMEBREW_NO_ANALYTICS=1
 
   if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
@@ -73,6 +74,7 @@ alias gitp='git add -p'
 alias g='git'
 alias grep='grep -n --color=auto'
 alias ccat='pygmentize -g'
+alias brwe='brew'
 
 ### Colored ls
 if [ -x /usr/bin/dircolors ]; then
