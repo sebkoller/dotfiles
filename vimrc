@@ -183,6 +183,13 @@ nmap <leader>bq :bp <BAR> bd #<CR>| " Close the current buffer and move to the p
 nmap <leader>bd :bp <BAR> bd #<CR>| " Close the current buffer and move to the previous one
 nmap <leader>bl :ls<CR>|			" Show all open buffers and their status
 
+" hide quickfix buffers when cycling through buffers
+augroup qf
+  autocmd!
+  autocmd FileType qf set nobuflisted
+augroup END
+
+
 
 let g:airline#extensions#tabline#enabled = 1		" Enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t'	" Show just the filename
