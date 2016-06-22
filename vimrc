@@ -40,7 +40,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'wellle/targets.vim'
   Plug 'unblevable/quick-scope'
   Plug 'Glench/Vim-Jinja2-Syntax'
-  " Plug 'evidens/vim-twig' discontinued. I should just use jinja highlighting
   " load promptline on demand via a function call (defined further down)
   Plug 'edkolev/promptline.vim', { 'on': [] }
   " -------------
@@ -193,7 +192,7 @@ if has("gui_running")
   if has("gui_macvim")
     set guifont=Meslo\ LG\ S\ Regular\ for\ Powerline:h11
   else
-	set guifont=Meslo\ LG\ S\ for\ Powerline\ 9.5
+    set guifont=Meslo\ LG\ S\ for\ Powerline\ 9.5
   endif
 endif
 
