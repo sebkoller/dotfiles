@@ -32,6 +32,7 @@ call plug#begin('~/.vim/plugged')
   " Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
   Plug 'kylef/apiblueprint.vim'
+  Plug 'vim-scripts/closetag.vim'
 
   Plug 'Lokaltog/vim-easymotion'
   Plug 'tpope/vim-surround'
@@ -193,6 +194,7 @@ augroup END
 
 let g:airline#extensions#tabline#enabled = 1		" Enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t'	" Show just the filename
+let g:airline#extensions#tabline#show_tabs = 1
 
 let g:airline_powerline_fonts=1
 if has("gui_running")
@@ -201,7 +203,10 @@ if has("gui_running")
   else
     set guifont=Meslo\ LG\ S\ for\ Powerline\ 9.5
   endif
+else
+  set termguicolors
 endif
+
 
 
 " UTF-8
@@ -246,7 +251,7 @@ if has('persistent_undo')
   let &undodir = undo_directory
 endif
 
-" Generate a shell prompt that uses the same theme as the vim airline
+" Generate a shell prompt with the same colorscheme as vim airline
 com! PromptlineBuilder :call <SID>PromptlineBuilder()
 fun! <SID>PromptlineBuilder()
   call plug#load('promptline.vim')
