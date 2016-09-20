@@ -11,10 +11,10 @@ if has('vim_starting')
   end
 endif
 
+
 call plug#begin('~/.vim/plugged')
 
-  Plug 'junegunn/vim-plug',
-          \ {'dir': '~/.vim/plugged/vim-plug/autoload'}
+  Plug 'junegunn/vim-plug', {'dir': '~/.vim/plugged/vim-plug/autoload'}
 
   Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
   Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
@@ -77,6 +77,8 @@ set splitright					" open vertical splits to the right
 set autoread					" load disk changes if there are no unsaved changes
 set ttyfast
 set lazyredraw
+set vb t_vb=
+autocmd GUIEnter * set vb t_vb=
 
 " -----------------
 " terminal specific
@@ -119,6 +121,7 @@ vnoremap // y/<C-R>"<CR>
 
 
 " syntastic
+set statusline+=\5
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -204,7 +207,9 @@ if has("gui_running")
     set guifont=Meslo\ LG\ S\ for\ Powerline\ 9.5
   endif
 else
-  set termguicolors
+  if $PLATFORM == 'Darwin'
+    set termguicolors
+  endif
 endif
 
 
@@ -251,6 +256,12 @@ if has('persistent_undo')
   let &undodir = undo_directory
 endif
 
+" set a dedicated directory for the backup files
+let backup_directory = expand('$HOME/.vim/backup')
+call system('mkdir ' . backup_directory)
+let &backupdir = backup_directory . '//'
+let &directory = backup_directory . '//'
+
 " Generate a shell prompt with the same colorscheme as vim airline
 com! PromptlineBuilder :call <SID>PromptlineBuilder()
 fun! <SID>PromptlineBuilder()
@@ -268,3 +279,27 @@ fun! <SID>PromptlineBuilder()
   execute 'PromptlineSnapshot! ' . dir . file . ' ' . theme
   echo 'Created ' . file . ' in ' . dir . ' using the '. theme . ' theme'
 endfun
+
+
+" Display spacemacs-like window number
+" with leader mapping to switch splits
+let g:airline_inactive_collapse=0
+let g:airline_mode_map = { '__' : ' ' }
+let i = 1
+while i <= 9
+  execute 'nnoremap <silent><leader>' . i . ' :' . i . 'wincmd w<CR>'
+  let i = i + 1
+endwhile
+
+function! WindowNumber()
+  let page=tabpagewinnr(tabpagenr())
+  let numbers=['➊','➋','➌','➍','➎','➏','➐','➑','➒']
+  return numbers[page-1]
+endfunction
+call airline#parts#define_function('windownumber', 'WindowNumber')
+
+function! AirlineInit()
+  let g:airline_section_a = airline#section#create_left(['windownumber', 'mode', 'crypt', 'paste', 'spell', 'capslock', 'iminsert'])
+endfunction
+autocmd User AirlineAfterInit call AirlineInit()
+

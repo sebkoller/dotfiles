@@ -33,7 +33,7 @@ bind 'set completion-ignore-case on'
 # OS X specific
 # ----------------------------------------------------------
 
-if [ "$PLATFORM" = "Darwin" ]; then
+if [[ $PLATFORM == "Darwin" ]]; then
 
   function clip()
   {
@@ -47,12 +47,13 @@ if [ "$PLATFORM" = "Darwin" ]; then
   if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
   fi
+fi
 
-  # coreutils ls' default colors don't look as nice
-  # I'll have to check how to get the BSD ls colors back
-  # MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-  # PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-
+if [[ $PLATFORM == "Linux" ]]; then
+  function clip()
+  {
+    [ -t 0 ] && xclip -selection clipboard -o || xclip -selection clipboard
+  }
 fi
 
 
@@ -75,6 +76,7 @@ alias g='git'
 alias grep='grep -n --color=auto'
 alias ccat='pygmentize -g'
 alias brwe='brew'
+
 
 ### Colored ls
 if [ -x /usr/bin/dircolors ]; then
@@ -99,9 +101,9 @@ fi
 
 if [ -d ~/.vim/plugged/gruvbox ]; then
   if [ "$PLATFORM" = "Darwin" ]; then
-    source /Users/skoller/.vim/plugged/gruvbox/gruvbox_256palette_osx.sh
+    source ~/.vim/plugged/gruvbox/gruvbox_256palette_osx.sh
   else
-    source /Users/skoller/.vim/plugged/gruvbox/gruvbox_256palette.sh
+    source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
   fi
 fi
 
@@ -111,6 +113,9 @@ if [ -f $HOME/.pythonrc ]; then
 	export PYTHONSTARTUP=$HOME/.pythonrc
 fi
 
+if [ -f $HOME/code/dwdeploy/dw_lib.sh ]; then
+	source $HOME/code/dwdeploy/dw_lib.sh
+fi
 
 
 function count()
