@@ -47,7 +47,7 @@ call plug#begin('~/.vim/plugged')
   " Color schemes
   " -------------
   Plug 'morhetz/gruvbox'
-  Plug 'tomasr/molokai'
+  Plug 'crusoexia/vim-monokai'
   Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
 
 call plug#end()
