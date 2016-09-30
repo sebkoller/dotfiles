@@ -21,6 +21,16 @@ export VISUAL=vim
 export EDITOR=vim
 export LANG=en_US.UTF-8
 
+# coloured man pages
+man() {
+    LESS_TERMCAP_md=$'\e[01;31m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_se=$'\e[0m' \
+    LESS_TERMCAP_so=$'\e[01;44;33m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    LESS_TERMCAP_us=$'\e[01;32m' \
+    command man "$@"
+}
 
 # Bash config
 # ----------------------------------------------------------
@@ -49,6 +59,8 @@ if [[ $PLATFORM == "Darwin" ]]; then
   fi
 fi
 
+# Linux
+# ----------------------------------------------------------
 if [[ $PLATFORM == "Linux" ]]; then
   function clip()
   {
@@ -76,6 +88,13 @@ alias g='git'
 alias grep='grep -n --color=auto'
 alias ccat='pygmentize -g'
 alias brwe='brew'
+
+# bash completion on git alias
+GIT_COMPLETION='/usr/share/bash-completion/completions/git'
+if [ -f $GIT_COMPLETION ]; then
+  source $GIT_COMPLETION
+  complete -o default -o nospace -F _git g
+fi
 
 
 ### Colored ls
