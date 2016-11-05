@@ -108,6 +108,7 @@ nnoremap <silent><leader>n :NERDTreeToggle<CR>
 nnoremap <silent><leader>r :set relativenumber!<cr>
 nnoremap <silent><leader>u :UndotreeToggle<CR>
 nnoremap <leader>c :%s///gn <CR>
+nnoremap <leader>m :silent make!\|redraw!\|cw<CR>
 
 " yield to the end of line
 noremap Y y$
@@ -149,6 +150,7 @@ let g:syntastic_html_tidy_ignore_errors = ['<isset> attribute "scope"', 'trimmin
 let g:syntastic_python_flake8_args='--ignore=W191,E501'		" allow tabs & ignore line lengths
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
+let g:syntastic_c_checkers = ['gcc']
 
 let g:html_indent_inctags = "isloop,isif,isdecorate"
 
