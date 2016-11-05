@@ -77,8 +77,9 @@ set splitright					" open vertical splits to the right
 set autoread					" load disk changes if there are no unsaved changes
 set ttyfast
 set lazyredraw
-set vb t_vb=
-autocmd GUIEnter * set vb t_vb=
+set vb t_vb=					" disable visual bell
+autocmd GUIEnter * set vb t_vb= " disable visual bell in gvim
+set t_Co=256					" color fix for tmux
 
 " -----------------
 " terminal specific
