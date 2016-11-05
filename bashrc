@@ -35,6 +35,9 @@ man() {
 # Bash config
 # ----------------------------------------------------------
 
+# Disable Ctrl-S (input stop), Ctrl-Q
+stty -ixon
+
 ### vim all the way
 set -o vi
 bind 'set completion-ignore-case on'
@@ -62,9 +65,16 @@ fi
 # Linux
 # ----------------------------------------------------------
 if [[ $PLATFORM == "Linux" ]]; then
+
+  # handy clip alias
   function clip()
   {
     [ -t 0 ] && xclip -selection clipboard -o || xclip -selection clipboard
+  }
+
+  # open files/protocols
+  function open () {
+    xdg-open "$*" > /dev/null 2>&1 &
   }
 fi
 
