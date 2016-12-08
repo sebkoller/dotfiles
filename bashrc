@@ -2,11 +2,15 @@
 # .bashrc for OS X and Arch Linux
 #
 
-export PLATFORM=$(uname -s)
-[ -f /etc/bashrc ] && . /etc/bashrc
+# Helper functions
+_exists () {
+    hash "$1" 2>/dev/null
+}
 
 # Environment variables
 # ----------------------------------------------------------
+export PLATFORM=$(uname -s)
+[ -f /etc/bashrc ] && . /etc/bashrc
 
 ### bash history
 ### keep long history, append after each command
@@ -76,6 +80,13 @@ if [[ $PLATFORM == "Linux" ]]; then
   function open () {
     xdg-open "$*" > /dev/null 2>&1 &
   }
+
+  brightness() {
+	  max=`cat /sys/class/backlight/intel_backlight/max_brightness`
+	  percent=$*
+	  let brightness="$max / 100 * $percent"
+	  echo "$brightness" | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null
+  }
 fi
 
 
@@ -99,6 +110,10 @@ alias grep='grep -n --color=auto'
 alias ccat='pygmentize -g'
 alias brwe='brew'
 
+if _exists colordiff ; then
+  alias diff='colordiff -u'
+fi
+
 # bash completion on git alias
 GIT_COMPLETION='/usr/share/bash-completion/completions/git'
 if [ -f $GIT_COMPLETION ]; then
@@ -108,7 +123,7 @@ fi
 
 
 ### Colored ls
-if [ -x /usr/bin/dircolors ]; then
+if _exists dircolors ; then
   eval "`dircolors -b`"
   alias ls='ls --color=auto'
   alias grep='grep --color=auto'
