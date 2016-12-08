@@ -31,6 +31,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'marijnh/tern_for_vim', { 'do': 'npm install', 'for': 'javascript' }
   " Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
+  Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
   Plug 'kylef/apiblueprint.vim'
   Plug 'vim-scripts/closetag.vim'
 
@@ -43,6 +44,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'Glench/Vim-Jinja2-Syntax'
   " load promptline on demand via a function call (defined further down)
   Plug 'edkolev/promptline.vim', { 'on': [] }
+  Plug 'mileszs/ack.vim'
   " -------------
   " Color schemes
   " -------------
@@ -80,6 +82,7 @@ set lazyredraw
 set vb t_vb=					" disable visual bell
 autocmd GUIEnter * set vb t_vb= " disable visual bell in gvim
 set t_Co=256					" color fix for tmux
+set noshowmode					" don't show the mode as Airline is doing it
 
 " -----------------
 " terminal specific
@@ -107,8 +110,12 @@ nnoremap <silent><leader>s :nohlsearch<CR>
 nnoremap <silent><leader>n :NERDTreeToggle<CR>
 nnoremap <silent><leader>r :set relativenumber!<cr>
 nnoremap <silent><leader>u :UndotreeToggle<CR>
+" count the last search
 nnoremap <leader>c :%s///gn <CR>
+" make with quickfix on errors
 nnoremap <leader>m :silent make!\|redraw!\|cw<CR>
+" yield the files content
+nnoremap <silent><leader>y :%y+<CR>
 
 " yield to the end of line
 noremap Y y$
@@ -120,6 +127,19 @@ inoremap {<CR>  {<CR>}<Esc>O
 
 " search for visual selection
 vnoremap // y/<C-R>"<CR>
+
+nnoremap <leader>f :Ack!<SPACE>""<LEFT>
+
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+  let g:ackhighlight = 1
+
+   " use ag in CtrlP for listing files
+  let g:ctrlp_user_command = 'ag -p ~/.agignore %s -l --nocolor --nogroup --hidden -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
 
 
 " syntastic
