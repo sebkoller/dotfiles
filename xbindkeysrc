@@ -1,0 +1,23 @@
+# -*- shell-script -*-
+#
+"~/.dotfiles/thinkpad/toggle_touchpad.sh"
+  XF86TouchpadToggle
+
+"~/.dotfiles/thinkpad/toggle_mic2.sh"
+  XF86AudioMicMute
+
+"xflock4"
+  XF86ScreenSaver
+
+"playerctl play-pause"
+  m:0x0 + c:172
+  XF86AudioPlay
+"playerctl stop"
+  m:0x0 + c:174
+  XF86AudioStop
+"playerctl previous"
+  m:0x0 + c:173
+  XF86AudioPrev
+"playerctl next"
+  m:0x0 + c:171
+  XF86AudioNext
