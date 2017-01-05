@@ -222,7 +222,10 @@ let g:airline#extensions#tabline#enabled = 1		" Enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t'	" Show just the filename
 let g:airline#extensions#tabline#show_tabs = 1
 
-let g:airline_powerline_fonts=1
+if empty($SSH_TTY)
+  let g:airline_powerline_fonts=1
+endif
+
 if has("gui_running")
   if has("gui_macvim")
     set guifont=Meslo\ LG\ S\ Regular\ for\ Powerline:h11
@@ -298,6 +301,9 @@ fun! <SID>PromptlineBuilder()
   let dir = '~/.goodies/promptline/'
   let file = 'shell_prompt.sh'
   let theme = 'airline'
+  if !empty($SSH_TTY)
+    let g:promptline_powerline_symbols = 0
+  endif
   call system('mkdir -p ' . dir)
   execute 'PromptlineSnapshot! ' . dir . file . ' ' . theme
   echo 'Created ' . file . ' in ' . dir . ' using the '. theme . ' theme'
