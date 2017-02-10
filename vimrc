@@ -24,7 +24,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'nathanaelkane/vim-indent-guides'
 
   Plug 'Valloric/YouCompleteMe', { 'do' : './install.py --clang-completer' }
-  Plug 'scrooloose/syntastic'
+  Plug 'w0rp/ale'
   Plug 'killerx/vim-javascript-syntax', { 'as': 'vim-dwscript-syntax', 'for': 'dwscript' }
   Plug 'othree/yajs.vim', { 'for': 'javascript' }
   Plug 'groenewege/vim-less', { 'for': 'less' }
@@ -142,12 +142,6 @@ if executable('ag')
 endif
 
 
-" syntastic
-set statusline+=\5
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
 let g:EasyMotion_smartcase = 1
 let NERDTreeIgnore = ['\.pyc$']  " ignore compiled python files
 
@@ -157,22 +151,12 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " You complete me <3
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_loc_list_height = 8
-let g:syntastic_ignore_files = ['*.isml']					" doesnt seem to work
-" let g:syntastic_html_checkers=['']							" disable html checkers
-let g:syntastic_html_tidy_empty_tags = ['isset', 'iselse', 'isprint', 'isbreak']
-let g:syntastic_html_tidy_blocklevel_tags = ['span', 'tbody', 'isif', 'iselse', 'isprint', 'isloop', 'isset', 'isinclude', 'isbreak', 'iscontinue', 'iscomment', 'isdecorate', 'isreplace', 'isscript']
-let g:syntastic_html_tidy_ignore_errors = ['<isset> attribute "scope"', 'trimming empty']
-let g:syntastic_python_flake8_args='--ignore=W191,E501'		" allow tabs & ignore line lengths
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exec = 'eslint_d'
-let g:syntastic_c_checkers = ['gcc']
 
-let g:html_indent_inctags = "isloop,isif,isdecorate"
+" A.L.E.
+let g:ale_javascript_eslint_executable = 'eslint_d'
+let g:ale_javascript_eslint_use_global = 1
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 
 " Demandware syntax highlighting
