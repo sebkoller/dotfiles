@@ -251,6 +251,8 @@ com! ReloadConfig :so $MYVIMRC | AirlineRefresh
 com! SudoWrite %!sudo tee > /dev/null %
 
 
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+set completeopt=longest,menuone
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 " remove trailing whitespaces on :w, save cursor position
