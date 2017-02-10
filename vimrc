@@ -70,10 +70,9 @@ set hlsearch					" highlight all matches
 set ignorecase					" search case insensitive
 set smartcase					" search case sensitive if upper case letters are used
 set autoindent
-set noexpandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set expandtab smarttab
+set tabstop=2
+set shiftwidth=2
 set scrolloff=5
 set splitbelow					" open horizontal split windows below
 set splitright					" open vertical splits to the right
