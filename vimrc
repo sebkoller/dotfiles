@@ -5,7 +5,7 @@ if has('vim_starting')
   set rtp+=~/.vim/plugged/vim-plug
 
   if !isdirectory(expand('~/.vim/plugged/vim-plug'))
-    echo 'install vim-plug...'
+    echo 'installing vim-plug...'
     call system('mkdir -p ~/.vim/plugged/vim-plug')
     call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/plugged/vim-plug/autoload')
   end
@@ -21,7 +21,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/vim-peekaboo'
   Plug 'vim-airline/vim-airline'
   Plug 'kien/ctrlp.vim'
-  Plug 'nathanaelkane/vim-indent-guides'
 
   Plug 'Valloric/YouCompleteMe', { 'do' : './install.py --clang-completer' }
   Plug 'w0rp/ale'
@@ -29,7 +28,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'othree/yajs.vim', { 'for': 'javascript' }
   Plug 'groenewege/vim-less', { 'for': 'less' }
   Plug 'marijnh/tern_for_vim', { 'do': 'npm install', 'for': 'javascript' }
-  " Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
   Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
   Plug 'kylef/apiblueprint.vim'
@@ -327,4 +325,3 @@ function! AirlineInit()
   let g:airline_section_a = airline#section#create_left(['windownumber', 'mode', 'crypt', 'paste', 'spell', 'capslock', 'iminsert'])
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()
-
