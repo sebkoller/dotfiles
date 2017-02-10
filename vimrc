@@ -34,6 +34,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
   Plug 'kylef/apiblueprint.vim'
   Plug 'vim-scripts/closetag.vim'
+  Plug 'hynek/vim-python-pep8-indent'
+  Plug 'mattn/emmet-vim', { 'for': ['html', 'php'] }
 
   Plug 'Lokaltog/vim-easymotion'
   Plug 'tpope/vim-surround'
@@ -45,9 +47,10 @@ call plug#begin('~/.vim/plugged')
   " load promptline on demand via a function call (defined further down)
   Plug 'edkolev/promptline.vim', { 'on': [] }
   Plug 'mileszs/ack.vim'
-  " -------------
-  " Color schemes
-  " -------------
+  Plug 'junegunn/vim-easy-align'
+  "" -------------
+  "" Color schemes
+  "" -------------
   Plug 'morhetz/gruvbox'
   Plug 'crusoexia/vim-monokai'
   Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
@@ -129,6 +132,12 @@ inoremap {<CR>  {<CR>}<Esc>O
 vnoremap // y/<C-R>"<CR>
 
 nnoremap <leader>f :Ack!<SPACE>""<LEFT>
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
 
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
