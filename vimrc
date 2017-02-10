@@ -139,7 +139,10 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 
-if executable('ag')
+let file_system = system("df -P -T ./ | tail -n +2 | awk '{printf $2}'")
+
+" don't use ag for ctrlp on remote file systems, as indexes should be cached
+if executable('ag') && file_system != 'fuse.sshfs'
   let g:ackprg = 'ag --vimgrep'
   let g:ackhighlight = 1
 
