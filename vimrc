@@ -59,36 +59,31 @@ call plug#end()
 " general settings
 " ----------------
 
-syntax on						" syntax highlighting
-set number						" enable line numbers
+syntax on             " syntax highlighting
+set number            " enable line numbers
 colorscheme gruvbox
-set ttimeoutlen=100				" updates modes in airline faster
-set background=dark				" dark gruvbox version
-set laststatus=2				" always show the statusline
-set incsearch					" search as characters are entered
-set hlsearch					" highlight all matches
-set ignorecase					" search case insensitive
-set smartcase					" search case sensitive if upper case letters are used
+set ttimeoutlen=100   " updates modes in airline faster
+set background=dark   " dark gruvbox version
+set laststatus=2      " always show the statusline
+set incsearch         " search as characters are entered
+set hlsearch          " highlight all matches
+set ignorecase        " search case insensitive
+set smartcase         " search case sensitive if upper case letters are used
 set autoindent
 set expandtab smarttab
 set tabstop=2
 set shiftwidth=2
 set scrolloff=5
-set splitbelow					" open horizontal split windows below
-set splitright					" open vertical splits to the right
-set autoread					" load disk changes if there are no unsaved changes
+set splitbelow        " open horizontal split windows below
+set splitright        " open vertical splits to the right
+set autoread          " load disk changes if there are no unsaved changes
 set ttyfast
 set lazyredraw
-set vb t_vb=					" disable visual bell
-autocmd GUIEnter * set vb t_vb= " disable visual bell in gvim
-set t_Co=256					" color fix for tmux
-set noshowmode					" don't show the mode as Airline is doing it
-
-" -----------------
-" terminal specific
-" -----------------
-set mouse=a						" mouse navigation
-set ttymouse=sgr				" properly recognize mouse clicks
+set vb t_vb=          " disable visual bell
+set t_Co=256          " color fix for tmux
+set noshowmode        " don't show the mode as Airline is doing it
+set mouse=a           " mouse navigation
+set ttymouse=sgr      " properly recognize mouse clicks
 
 " -----------------------
 " hard to type characters
@@ -195,13 +190,13 @@ iabbrev forech foreach
 "  working with buffers
 " ---------------------
 
-set hidden							" don't force changes to be saved
-nmap <leader>t :enew<cr>|			" open a new buffer
-nmap <leader>l :bnext<CR>|			" Move to the next buffer
-nmap <leader>h :bprevious<CR>|		" Move to the previous buffer
-nmap <leader>bq :bp <BAR> bd #<CR>| " Close the current buffer and move to the previous one
-nmap <leader>bd :bp <BAR> bd #<CR>| " Close the current buffer and move to the previous one
-nmap <leader>bl :ls<CR>|			" Show all open buffers and their status
+set hidden                            " don't force changes to be saved
+nmap <leader>t :enew<cr>             | " open a new buffer
+nmap <leader>l :bnext<CR>            | " Move to the next buffer
+nmap <leader>h :bprevious<CR>        | " Move to the previous buffer
+nmap <leader>bq :bp <BAR> bd #<CR>   | " Close the current buffer and move to the previous one
+nmap <leader>bd :bp <BAR> bd #<CR>   | " Close the current buffer and move to the previous one
+nmap <leader>bl :ls<CR>              | " Show all open buffers and their status
 
 " hide quickfix buffers when cycling through buffers
 augroup qf
@@ -210,16 +205,19 @@ augroup qf
 augroup END
 
 
-
-let g:airline#extensions#tabline#enabled = 1		" Enable the list of buffers
-let g:airline#extensions#tabline#fnamemod = ':t'	" Show just the filename
+let g:airline#extensions#tabline#enabled = 1       " Enable the list of buffers
+let g:airline#extensions#tabline#fnamemod = ':t'   " Show just the filename
 let g:airline#extensions#tabline#show_tabs = 1
 
+
+"for the sake of my coworkers, disable powerline on ssh
 if empty($SSH_TTY)
   let g:airline_powerline_fonts=1
 endif
 
 if has("gui_running")
+  autocmd GUIEnter * set vb t_vb=   " disable visual bell in gvim
+
   if has("gui_macvim")
     set guifont=Meslo\ LG\ S\ Regular\ for\ Powerline:h11
   else
