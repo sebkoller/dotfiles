@@ -137,7 +137,7 @@ if [ -f ~/.goodies/promptline/shell_prompt.sh ]; then
 fi
 
 if [ -d ~/.dotfiles/thinkpad/ ] && \
-   [ "`cat /sys/devices/virtual/dmi/id/product_version 2>/dev/null`" == "ThinkPad 420" ]
+   [ "`cat /sys/devices/virtual/dmi/id/product_version 2>/dev/null`" == "ThinkPad T420" ]
 then
   export PATH=$PATH:~/.dotfiles/thinkpad
 fi
