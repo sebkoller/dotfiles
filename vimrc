@@ -21,6 +21,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/vim-peekaboo'
   Plug 'vim-airline/vim-airline'
   Plug 'kien/ctrlp.vim'
+  Plug 'tpope/vim-fugitive'
 
   Plug 'Valloric/YouCompleteMe', { 'do' : './install.py --clang-completer' }
   Plug 'w0rp/ale'
