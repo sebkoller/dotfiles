@@ -66,6 +66,7 @@ call plug#end()
 
 syntax on             " syntax highlighting
 set number            " enable line numbers
+set linebreak         " enable word wrapping
 colorscheme gruvbox
 set ttimeoutlen=100   " updates modes in airline faster
 set background=dark   " dark gruvbox version
@@ -296,6 +297,7 @@ fun! <SID>PromptlineBuilder()
     \'a' : [promptline#slices#host({ 'only_if_ssh': 1 }) ],
     \'b' : [promptline#slices#user() ],
     \'c' : [promptline#slices#cwd({ 'dir_limit': 2 }) ],
+    \'x' : [promptline#slices#python_virtualenv() ],
     \'y' : [promptline#slices#vcs_branch() ],
     \'warn' : [promptline#slices#last_exit_code() ]}
   let dir = '~/.goodies/promptline/'
