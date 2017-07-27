@@ -18,6 +18,7 @@ export HISTCONTROL=ignoredups:erasedups
 export HISTSIZE=1000000
 export HISTFILESIZE=1000000
 shopt -s histappend
+shopt -s checkwinsize
 # export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 ### Global
@@ -101,12 +102,12 @@ alias lla='ls -lA'
 alias which='type -p'
 alias vimrc='vim ~/.vimrc'
 alias bashrc='vim ~/.bashrc'
-alias git-append='git commit --amend --no-edit'
-alias gitp='git add -p'
 alias g='git'
 alias grep='grep -n --color=auto'
 alias ccat='pygmentize -g'
 alias brwe='brew'
+alias bim='vim'
+alias rtorrent='tmux attach-session -t rt || tmux new-session -s rt rtorrent'
 
 if _exists colordiff ; then
   alias diff='colordiff -u'
