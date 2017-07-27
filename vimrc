@@ -23,12 +23,16 @@ call plug#begin('~/.vim/plugged')
   Plug 'kien/ctrlp.vim'
   Plug 'tpope/vim-fugitive'
 
-  Plug 'Valloric/YouCompleteMe', { 'do' : './install.py --clang-completer' }
+  " do not install the compiling stuff when I ssh into servers
+  if empty($SSH_TTY)
+    Plug 'Valloric/YouCompleteMe', { 'do' : './install.py --clang-completer' }
+    Plug 'marijnh/tern_for_vim', { 'do': 'npm install', 'for': 'javascript' }
+  endif
+
   Plug 'w0rp/ale'
   Plug 'killerx/vim-javascript-syntax', { 'as': 'vim-dwscript-syntax', 'for': 'dwscript' }
   Plug 'othree/yajs.vim', { 'for': 'javascript' }
   Plug 'groenewege/vim-less', { 'for': 'less' }
-  Plug 'marijnh/tern_for_vim', { 'do': 'npm install', 'for': 'javascript' }
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
   Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
   Plug 'kylef/apiblueprint.vim'
