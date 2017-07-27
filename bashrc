@@ -2,6 +2,9 @@
 # .bashrc for OS X and Arch Linux
 #
 
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
 # Helper functions
 _exists () {
     hash "$1" 2>/dev/null
