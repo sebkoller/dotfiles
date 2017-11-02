@@ -9,6 +9,9 @@
 "xflock4"
   XF86ScreenSaver
 
+"systemctl suspend"
+  XF86Launch1
+
 "playerctl play-pause"
   m:0x0 + c:172
   XF86AudioPlay
@@ -21,3 +24,8 @@
 "playerctl next"
   m:0x0 + c:171
   XF86AudioNext
+
+# alt tab on document key
+"xdotool keydown alt; sleep .1; xdotool key Tab key alt"
+  m:0x10 + c:135
+  Mod2 + Menu
