@@ -1,0 +1,13 @@
+[Unit]
+Description=Executes xrandr on resume when a monitor is connected.
+After=suspend.target
+
+[Service]
+User=%i
+Type=oneshot
+Environment=DISPLAY=:0
+ExecStart=/usr/local/bin/xrandr_extend_above.sh
+TimeoutSec=0
+
+[Install]
+WantedBy=multi-user.target sleep.target
