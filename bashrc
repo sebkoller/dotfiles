@@ -115,13 +115,15 @@ alias ccat='pygmentize -g'
 alias brwe='brew'
 alias bim='vim'
 alias rtorrent='tmux attach-session -t rt || tmux new-session -s rt rtorrent'
+alias trash='mv -t /tmp'
+
 
 if _exists colordiff ; then
   alias diff='colordiff -u'
 fi
 
 # make directory and cd to it
-mkcd () {
+mkcd() {
   mkdir -p -- "$1" &&
     cd -P -- "$1"
 }
