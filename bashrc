@@ -120,6 +120,12 @@ if _exists colordiff ; then
   alias diff='colordiff -u'
 fi
 
+# make directory and cd to it
+mkcd () {
+  mkdir -p -- "$1" &&
+    cd -P -- "$1"
+}
+
 # bash completion on git alias
 GIT_COMPLETION='/usr/share/bash-completion/completions/git'
 if [ -f $GIT_COMPLETION ]; then
