@@ -17,7 +17,7 @@ export PLATFORM=$(uname -s)
 
 ### bash history
 ### keep long history, append after each command
-export HISTCONTROL=ignoredups:erasedups
+export HISTCONTROL=ignoredups:erasedups:ignoreboth
 export HISTSIZE=1000000
 export HISTFILESIZE=1000000
 shopt -s histappend
