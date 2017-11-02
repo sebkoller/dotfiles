@@ -36,13 +36,17 @@ call plug#begin('~/.vim/plugged')
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
   Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
   Plug 'kylef/apiblueprint.vim'
-  Plug 'vim-scripts/closetag.vim'
   Plug 'hynek/vim-python-pep8-indent'
   Plug 'mattn/emmet-vim', { 'for': ['html', 'php'] }
+  Plug 'alvan/vim-closetag', { 'for': ['html', 'php'] }
+  Plug 'elmcast/elm-vim' , { 'for': ['elm'] }
+  Plug 'dzeban/vim-log-syntax'
 
   Plug 'Lokaltog/vim-easymotion'
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-unimpaired'
+  Plug 'tpope/vim-repeat'
   Plug 'terryma/vim-multiple-cursors'
   Plug 'wellle/targets.vim'
   Plug 'unblevable/quick-scope'
@@ -51,6 +55,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'edkolev/promptline.vim', { 'on': [] }
   Plug 'mileszs/ack.vim'
   Plug 'junegunn/vim-easy-align'
+  Plug 'nathanaelkane/vim-indent-guides'
+
   "" -------------
   "" Color schemes
   "" -------------
@@ -109,7 +115,7 @@ iabbrev xx ✘
 " with leader key
 nnoremap <silent><leader>s :nohlsearch<CR>
 nnoremap <silent><leader>n :NERDTreeToggle<CR>
-nnoremap <silent><leader>r :set relativenumber!<cr>
+nnoremap <silent><leader>v :set relativenumber!<cr>
 nnoremap <silent><leader>u :UndotreeToggle<CR>
 " count the last search
 nnoremap <leader>c :%s///gn <CR>
