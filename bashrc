@@ -84,8 +84,12 @@ if [[ $PLATFORM == "Linux" ]]; then
   }
 
   brightness() {
-    max=`cat /sys/class/backlight/intel_backlight/max_brightness`
+    between_1_and_100='^[1-9][0-9]?$|^100$'
     percent=$*
+    if ! [[ $percent =~ $between_1_and_100 ]]; then
+      echo "error: Enter a number from 1 to 100"; return;
+    fi
+    max=`cat /sys/class/backlight/intel_backlight/max_brightness`
     let brightness="$max / 100 * $percent"
     echo "$brightness" | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null
   }
