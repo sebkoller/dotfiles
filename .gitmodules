@@ -1,0 +1,3 @@
+[submodule "rofi/gruvbox-rofi"]
+	path = rofi/gruvbox-rofi
+	url = https://github.com/bardisty/gruvbox-rofi
