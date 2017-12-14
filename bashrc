@@ -12,7 +12,7 @@ _exists () {
 
 # Environment variables
 # ----------------------------------------------------------
-export PLATFORM=$(uname -s)
+PLATFORM=$(uname -s)
 [ -f /etc/bashrc ] && . /etc/bashrc
 
 ### bash history
