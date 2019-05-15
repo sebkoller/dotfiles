@@ -1,0 +1,31 @@
+; Add this to my global gitconfig
+; [user]
+;     name = <name>
+;     email = <email>
+; [include]
+;     path = ~/.dotfiles/gitconfig
+
+[alias]
+    l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    a = add
+    p = add -p
+    s = status
+    c = checkout
+    idiff = diff --word-diff=plain
+    append = commit --amend --no-edit
+[mergetool "kdiff3"]
+    path = /usr/local/bin/kdiff3
+[merge]
+    tool = vimdiff
+    conflictstyle = diff3
+    prompt = false
+[push]
+    default = current
+[core]
+    pager = diff-so-fancy | less --tabs=4 -RFX
+[help]
+    autocorrect = 1
+[credential]
+    helper = gnome-keyring
+
+; vi:syntax=gitconfig
