@@ -1,0 +1,7 @@
+# Config for the Vimium browser plugin
+
+map e scrollPageUp
+map m scrollPageDown
+
+map s scrollDown
+map w scrollUp
