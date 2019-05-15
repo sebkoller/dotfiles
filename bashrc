@@ -115,12 +115,16 @@ alias vimrc='vim ~/.vimrc'
 alias bashrc='vim ~/.bashrc'
 alias g='git'
 alias grep='grep -n --color=auto'
-alias ccat='pygmentize -g'
+alias ccat='bat'
 alias brwe='brew'
 alias bim='vim'
+alias fvim='vim `fzf`'
 alias rtorrent='tmux attach-session -t rt || tmux new-session -s rt rtorrent'
 alias trash='mv -t /tmp'
 
+if _exists nvim ; then
+  alias vim='nvim'
+fi
 
 if _exists colordiff ; then
   alias diff='colordiff -u'
