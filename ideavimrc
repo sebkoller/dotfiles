@@ -1,0 +1,49 @@
+" enable vim-surround emulation
+set surround
+
+set hlsearch
+set incsearch
+" intellij has no functional visual bell
+set visualbell
+set noerrorbells
+set ignorecase smartcase
+
+
+" Y should yield to the end of the line
+noremap Y y$
+
+" search for visual selection
+vnoremap // y/<C-R>"<CR>
+
+nnoremap ]l :action GotoNextError<cr>
+nnoremap [l :action GotoPreviousError<cr>
+
+" easy system clipboard copy/paste
+noremap <space>y "*y
+noremap <space>Y "*Y
+noremap <space>p "*p
+noremap <space>P "*P
+
+nnoremap g<c-o> :action Back<cr>
+nnoremap g<c-i> :action Forward<cr>
+
+nnoremap <space>rr :action Run<cr><esc>
+nnoremap <space>qq :action Exit<cr>
+
+nnoremap <space>l :action ReformatCode<cr>
+nnoremap <space>f :action GotoClass<cr>
+nnoremap <space>g :action Generate<cr>
+nnoremap <space>v :action IntroduceVariable<cr>
+nnoremap <space>re :action RenameElement<cr>
+nnoremap <space>o :action OptimizeImports<cr>
+
+nnoremap <space>nc :action NewClass<cr>
+nnoremap <space>nf :action NewFile<cr>
+
+nnoremap <space>s :nohlsearch<cr>
+
+nnoremap <space>I :action ImplementMethods<cr>
+nnoremap <space>S :action SurroundWith<cr>
+
+nnoremap <space>c :source ~/.ideavimrc<cr>
+
