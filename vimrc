@@ -17,18 +17,37 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/vim-plug', {'dir': '~/.vim/plugged/vim-plug/autoload'}
 
   Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+  Plug 'ErichDonGubler/nerdtree-plugin-open-in-file-browser', { 'on': 'NERDTreeToggle' }
+  Plug 'ErichDonGubler/vim-file-browser-integration', { 'on': 'NERDTreeToggle' }
   Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
   Plug 'junegunn/vim-peekaboo'
   Plug 'vim-airline/vim-airline'
   Plug 'kien/ctrlp.vim'
   Plug 'tpope/vim-fugitive'
+  Plug 'junegunn/goyo.vim'
 
-  " do not install the compiling stuff when I ssh into servers
-  if empty($SSH_TTY)
-    Plug 'Valloric/YouCompleteMe', { 'do' : './install.py --clang-completer' }
-    Plug 'marijnh/tern_for_vim', { 'do': 'npm install', 'for': 'javascript' }
+  " do not install the heavy stuff when I ssh into servers
+  if empty($SSH_TTY) && has('nvim')
+    " nvim-completetion-manager 2 (ncm2)
+	Plug 'ncm2/ncm2'
+    Plug 'roxma/nvim-yarp'
+	Plug 'ncm2/ncm2-path'
+	Plug 'ncm2/ncm2-bufword'
+	Plug 'ncm2/ncm2-tern', {'do': 'npm install', 'for': 'javascript'}
+	Plug 'ncm2/ncm2-jedi', {'for': 'python'}
+	Plug 'ncm2/ncm2-vim' , {'for': 'vim'}
+    Plug 'Shougo/neco-vim', {'for': 'vim'}
+
+    Plug 'sbdchd/neoformat'
+
+    set completeopt=noinsert,menuone,noselect
+    autocmd BufEnter * call ncm2#enable_for_buffer()
+
   endif
 
+  "" ----------------
+  "" Language plugins
+  "" ----------------
   Plug 'w0rp/ale'
   Plug 'killerx/vim-javascript-syntax', { 'as': 'vim-dwscript-syntax', 'for': 'dwscript' }
   Plug 'othree/yajs.vim', { 'for': 'javascript' }
@@ -41,7 +60,18 @@ call plug#begin('~/.vim/plugged')
   Plug 'alvan/vim-closetag', { 'for': ['html', 'php'] }
   Plug 'elmcast/elm-vim' , { 'for': ['elm'] }
   Plug 'dzeban/vim-log-syntax'
+  Plug 'udalov/kotlin-vim'
+  Plug 'lervag/vimtex'
+  Plug 'slashmili/alchemist.vim'
+  Plug 'elixir-editors/vim-elixir'
+  Plug 'cakebaker/scss-syntax.vim'
+  Plug 'rgrinberg/vim-ocaml', { 'for': ['ocaml', 'jbuild', 'opam', 'oasis', 'omake', 'ocamlbuild_tags', 'sexplib']}
+  Plug 'fsharp/vim-fsharp', { 'for': 'fsharp', 'do':  'make fsautocomplete'}
+  " Plug 'shmargum/vim-sass-colors' // too laggy
 
+  "" -------------------
+  "" Behavioural plugins
+  "" -------------------
   Plug 'Lokaltog/vim-easymotion'
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-commentary'
@@ -76,32 +106,41 @@ set linebreak         " enable word wrapping
 colorscheme gruvbox
 set ttimeoutlen=100   " updates modes in airline faster
 set background=dark   " dark gruvbox version
-set laststatus=2      " always show the statusline
-set incsearch         " search as characters are entered
-set hlsearch          " highlight all matches
 set ignorecase        " search case insensitive
 set smartcase         " search case sensitive if upper case letters are used
-set autoindent
 set expandtab smarttab
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set scrolloff=5
 set splitbelow        " open horizontal split windows below
 set splitright        " open vertical splits to the right
-set autoread          " load disk changes if there are no unsaved changes
-set ttyfast
 set lazyredraw
 set vb t_vb=          " disable visual bell
 set t_Co=256          " color fix for tmux
 set noshowmode        " don't show the mode as Airline is doing it
 set mouse=a           " mouse navigation
-set ttymouse=sgr      " properly recognize mouse clicks
+
+"Already set in neovim defaults
+set autoindent
+set autoread          " load disk changes if there are no unsaved changes
+set incsearch         " search as characters are entered
+set hlsearch          " highlight all matches
+set laststatus=2      " always show the statusline
+set ttyfast
+
+if !has('nvim')
+  set ttymouse=sgr       " properly recognize mouse clicks
+else
+  set inccommand=split   " live updates on :s
+endif
+
+" write changes to file when leaving insert mode
+" Don't try this at home kids!
+" autocmd InsertLeave * update
 
 " -----------------------
 " hard to type characters
 " -----------------------
-iabbrev >> →
-iabbrev << ←
 iabbrev ^^ ↑
 iabbrev VV ↓
 iabbrev aa λ
@@ -119,13 +158,14 @@ nnoremap <silent><leader>v :set relativenumber!<cr>
 nnoremap <silent><leader>u :UndotreeToggle<CR>
 " count the last search
 nnoremap <leader>c :%s///gn <CR>
+" save file
+nnoremap <leader>w :w<CR>
 " make with quickfix on errors
 nnoremap <leader>m :silent make!\|redraw!\|cw<CR>
 " yield the files content
 nnoremap <silent><leader>y :%y+<CR>
-
 " yield to the end of line
-noremap Y y$
+noremap  Y y$
 " move through long lines up and down
 nnoremap k gk
 nnoremap j gj
@@ -165,14 +205,36 @@ let NERDTreeIgnore = ['\.pyc$']  " ignore compiled python files
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " You complete me <3
-let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_semantic_triggers = {
+"   \ 'elm' : ['.'],
+"   \}
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+
+
+
+
+let g:elm_detailed_complete = 1
 
 
 " A.L.E.
-let g:ale_javascript_eslint_executable = 'eslint_d'
+" let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_eslint_use_global = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <leader>l <Plug>(ale_fix)
+
+let g:ale_linters = {
+\   'python': ['flake8', 'mypy'],
+\}
+
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\   'python': ['yapf'],
+\   'cpp': ['clang-format'],
+\}
 
 
 " Demandware syntax highlighting
@@ -204,8 +266,8 @@ iabbrev forech foreach
 
 set hidden                            " don't force changes to be saved
 nmap <leader>t :enew<cr>             | " open a new buffer
-nmap <leader>l :bnext<CR>            | " Move to the next buffer
-nmap <leader>h :bprevious<CR>        | " Move to the previous buffer
+nmap <leader>k :bnext<CR>            | " Move to the next buffer
+nmap <leader>j :bprevious<CR>        | " Move to the previous buffer
 nmap <leader>bq :bp <BAR> bd #<CR>   | " Close the current buffer and move to the previous one
 nmap <leader>bd :bp <BAR> bd #<CR>   | " Close the current buffer and move to the previous one
 nmap <leader>bl :ls<CR>              | " Show all open buffers and their status
@@ -223,6 +285,7 @@ let g:airline#extensions#tabline#show_tabs = 1
 
 
 "for the sake of my coworkers, disable powerline on ssh
+"(hint: stop sharing accounts)
 if empty($SSH_TTY)
   let g:airline_powerline_fonts=1
 endif
@@ -262,9 +325,54 @@ com! ReloadConfig :so $MYVIMRC | AirlineRefresh
 com! SudoWrite %!sudo tee > /dev/null %
 
 
-autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-set completeopt=longest,menuone
+" PHP autocomplete
+" autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+" set completeopt=longest,menuone
+"
+"
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+
+" LaTex
+let g:tex_flavor = "latex"
+let g:vimtex_view_method = 'mupdf'
+let g:vimtex_compiler_method = 'latexmk'
+let g:vimtex_compiler_latexmk = {
+      \ 'options' : [
+      \  '-shell-escape',
+      \  '-file-line-error',
+      \  '-pdf',
+      \  '-synctex=1',
+      \  '-interaction=nonstopmode',
+      \ ],
+      \}
+
+" Neovim specific
+" requires 'neovim-remote' pip package
+let g:vimtex_compiler_progname = 'nvr'
+
+" OCaml config
+augroup fmt
+  autocmd!
+  autocmd BufWritePre *.ml undojoin | Neoformat
+augroup END
+
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
+
+" LaTex auto-complete via ncm
+" augroup my_cm_setup
+"   autocmd!
+"   autocmd User CmSetup call cm#register_source({
+"         \ 'name' : 'vimtex',
+"         \ 'priority': 8,
+"         \ 'scoping': 1,
+"         \ 'scopes': ['tex'],
+"         \ 'abbreviation': 'tex',
+"         \ 'cm_refresh_patterns': g:vimtex#re#ncm,
+"         \ 'cm_refresh': {'omnifunc': 'vimtex#complete#omnifunc'},
+"         \ })
+" augroup END
 
 " remove trailing whitespaces on :w, save cursor position
 fun! <SID>StripTrailingWhitespaces()
@@ -308,7 +416,7 @@ fun! <SID>PromptlineBuilder()
     \'warn' : [promptline#slices#last_exit_code() ]}
   let dir = '~/.goodies/promptline/'
   let file = 'shell_prompt.sh'
-  let theme = 'airline'
+  let theme = 'jelly'
   if !empty($SSH_TTY)
     let g:promptline_powerline_symbols = 0
   endif
