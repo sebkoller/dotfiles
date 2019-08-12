@@ -46,10 +46,6 @@ man() {
 # Disable Ctrl-S (input stop), Ctrl-Q
 stty -ixon
 
-### vim all the way
-set -o vi
-bind 'set completion-ignore-case on'
-
 
 # OS X specific
 # ----------------------------------------------------------
