@@ -1,5 +1,9 @@
-" enable vim-surround emulation
-set surround
+" EXTENSIONS
+set surround   " vim-surround
+set commentary " commentary
+
+" join lines via the IDE
+set ideajoin
 
 set hlsearch
 set incsearch
@@ -27,14 +31,19 @@ noremap <space>P "*P
 nnoremap g<c-o> :action Back<cr>
 nnoremap g<c-i> :action Forward<cr>
 
+inoremap <c-n> <Down>
+inoremap <c-p> <Up>
+
 nnoremap <space>rr :action Run<cr><esc>
+nnoremap <space>rt :action RerunTests<cr>
+nnoremap <space>rft :action RerunFailedTests<cr>
 nnoremap <space>qq :action Exit<cr>
 
-nnoremap <space>l :action ReformatCode<cr>
-nnoremap <space>f :action GotoClass<cr>
 nnoremap <space>g :action Generate<cr>
+nnoremap <space>I :action ImplementMethods<cr>
 nnoremap <space>v :action IntroduceVariable<cr>
 nnoremap <space>re :action RenameElement<cr>
+nnoremap <space>l :action ReformatCode<cr>
 nnoremap <space>o :action OptimizeImports<cr>
 
 nnoremap <space>nc :action NewClass<cr>
@@ -42,8 +51,17 @@ nnoremap <space>nf :action NewFile<cr>
 
 nnoremap <space>s :nohlsearch<cr>
 
-nnoremap <space>I :action ImplementMethods<cr>
 nnoremap <space>S :action SurroundWith<cr>
 
-nnoremap <space>c :source ~/.ideavimrc<cr>
+nnoremap <space>C :source ~/.ideavimrc<cr>
+
+" Navigation
+nnoremap <space>f :action GotoFile<cr>
+nnoremap <space>w :action ActivateProjectToolWindow<cr>
+
+" Hide all tool windows
+nnoremap <space>c :action HideAllWindows<cr>
+
+" Flutter
+nnoremap <space>h :action Flutter.Toolbar.ReloadAction<cr>
 
