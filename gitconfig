@@ -10,9 +10,17 @@
     a = add
     p = add -p
     s = status
+    st = stash
     c = checkout
+    d = diff
     idiff = diff --word-diff=plain
     append = commit --amend --no-edit
+    stash-untracked = "!f() {    \
+        git stash;               \
+        git stash -u;            \
+        git stash pop stash@{1}; \
+    }; f"
+    history-of = log --follow -p --stat --
 [mergetool "kdiff3"]
     path = /usr/local/bin/kdiff3
 [merge]
