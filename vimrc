@@ -52,6 +52,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'w0rp/ale'
   Plug 'killerx/vim-javascript-syntax', { 'as': 'vim-dwscript-syntax', 'for': 'dwscript' }
   Plug 'othree/yajs.vim', { 'for': 'javascript' }
+  Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
   Plug 'groenewege/vim-less', { 'for': 'less' }
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
   Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
@@ -69,6 +70,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'rgrinberg/vim-ocaml', { 'for': ['ocaml', 'jbuild', 'opam', 'oasis', 'omake', 'ocamlbuild_tags', 'sexplib']}
   Plug 'fsharp/vim-fsharp', { 'for': 'fsharp', 'do':  'make fsautocomplete'}
   " Plug 'shmargum/vim-sass-colors' // too laggy
+  Plug 'posva/vim-vue', { 'for': ['vue'] }
+  Plug 'martinda/Jenkinsfile-vim-syntax'
+  Plug 'dart-lang/dart-vim-plugin'
 
   "" -------------------
   "" Behavioural plugins
