@@ -88,7 +88,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'Glench/Vim-Jinja2-Syntax'
   " load promptline on demand via a function call (defined further down)
   Plug 'edkolev/promptline.vim', { 'on': [] }
-  Plug 'mileszs/ack.vim'
+  Plug 'jremmen/vim-ripgrep'
   Plug 'junegunn/vim-easy-align'
   Plug 'nathanaelkane/vim-indent-guides'
 
@@ -180,7 +180,7 @@ inoremap {<CR>  {<CR>}<Esc>O
 " search for visual selection
 vnoremap // y/<C-R>"<CR>
 
-nnoremap <leader>f :Ack!<SPACE>""<LEFT>
+nnoremap <leader>f :Rg<SPACE>""<LEFT>
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
