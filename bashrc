@@ -117,6 +117,7 @@ alias bim='vim'
 alias fvim='vim `fzf`'
 alias rtorrent='tmux attach-session -t rt || tmux new-session -s rt rtorrent'
 alias trash='mv -t /tmp'
+alias pc='pass -c'
 
 if _exists nvim ; then
   alias vim='nvim'
@@ -132,12 +133,22 @@ mkcd() {
     cd -P -- "$1"
 }
 
-# bash completion on git alias
+
+### add bash completion on on aliases
+
 GIT_COMPLETION='/usr/share/bash-completion/completions/git'
 if [ -f $GIT_COMPLETION ]; then
   source $GIT_COMPLETION
   complete -o default -o nospace -F _git g
 fi
+unset GIT_COMPLETION
+
+PASS_COMPLETION='/usr/share/bash-completion/completions/pass'
+if [ -f $PASS_COMPLETION ]; then
+  source $PASS_COMPLETION
+  complete -o filenames -o nospace -F _pass pc
+fi
+unset PASS_COMPLETION
 
 
 ### Colored ls
