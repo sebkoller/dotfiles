@@ -17,7 +17,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/vim-plug', {'dir': '~/.vim/plugged/vim-plug/autoload'}
 
   Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-  Plug 'ErichDonGubler/nerdtree-plugin-open-in-file-browser', { 'on': 'NERDTreeToggle' }
   Plug 'ErichDonGubler/vim-file-browser-integration', { 'on': 'NERDTreeToggle' }
   Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
   Plug 'junegunn/vim-peekaboo'
@@ -217,10 +216,6 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-
-
-
-
 let g:elm_detailed_complete = 1
 
 
@@ -242,11 +237,6 @@ let g:ale_fixers = {
 \}
 
 
-" Demandware syntax highlighting
-au BufRead,BufNewFile *.isml set filetype=html
-au BufRead,BufNewFile *.ds set filetype=dwscript
-" au! Syntax dwscript source ~/.vim/plugged/vim-dwscript-syntax/syntax/dwscript.vim
-"
 au BufRead,BufNewFile *.twig set filetype=jinja
 
 
