@@ -406,6 +406,12 @@ if has('persistent_undo')
   let &undodir = undo_directory
 endif
 
+" disable undo file for temporary files with sensitive content
+" e.g. pass edit, sudo -e, ...
+au BufRead,BufNewFile /dev/shm/* :set noundofile
+au BufRead,BufNewFile /var/tmp/* :set noundofile
+
+
 " set a dedicated directory for the backup files
 let backup_directory = expand('$HOME/.vim/backup')
 call system('mkdir ' . backup_directory)
