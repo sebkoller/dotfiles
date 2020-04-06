@@ -114,6 +114,7 @@ alias grep='grep -n --color=auto'
 alias ccat='bat'
 alias brwe='brew'
 alias bim='vim'
+alias cim='vim'
 alias fvim='vim `fzf`'
 alias rtorrent='tmux attach-session -t rt || tmux new-session -s rt rtorrent'
 alias trash='mv -t /tmp'
@@ -188,10 +189,10 @@ if [ -f $HOME/.pythonrc ]; then
   export PYTHONSTARTUP=$HOME/.pythonrc
 fi
 
-if [ -f $HOME/code/dwdeploy/dw_lib.sh ]; then
-  source $HOME/code/dwdeploy/dw_lib.sh
+# set PATH so it includes user's private ~/.local/bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
 fi
-
 
 function count() {
   if [ "$1" ]; then
@@ -232,3 +233,5 @@ function extract {
     fi
 fi
 }
+
+unset PLATFORM
