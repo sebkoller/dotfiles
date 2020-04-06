@@ -25,6 +25,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'kien/ctrlp.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'junegunn/goyo.vim'
+  Plug 'junegunn/limelight.vim'
 
   " do not install the heavy stuff when I ssh into servers
   if empty($SSH_TTY) && has('nvim')
@@ -346,6 +347,10 @@ let g:vimtex_compiler_latexmk = {
       \  '-interaction=nonstopmode',
       \ ],
       \}
+
+" Use Limlight (Hyperfocus writing) when entering Goyo
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 
 " Neovim specific
 " requires 'neovim-remote' pip package
