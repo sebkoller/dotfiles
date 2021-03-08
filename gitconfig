@@ -24,9 +24,12 @@
 [mergetool "kdiff3"]
     path = /usr/local/bin/kdiff3
 [merge]
+    ff = only
     tool = vimdiff
     conflictstyle = diff3
     prompt = false
+[pull]
+	ff = only
 [push]
     default = current
 [core]
