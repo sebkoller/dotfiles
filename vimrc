@@ -261,8 +261,8 @@ iabbrev forech foreach
 
 set hidden                            " don't force changes to be saved
 nmap <leader>t :enew<cr>             | " open a new buffer
-nmap <leader>k :bnext<CR>            | " Move to the next buffer
-nmap <leader>j :bprevious<CR>        | " Move to the previous buffer
+nmap <leader>j :bnext<CR>            | " Move to the next buffer
+nmap <leader>k :bprevious<CR>        | " Move to the previous buffer
 nmap <leader>bq :bp <BAR> bd #<CR>   | " Close the current buffer and move to the previous one
 nmap <leader>bd :bp <BAR> bd #<CR>   | " Close the current buffer and move to the previous one
 nmap <leader>bl :ls<CR>              | " Show all open buffers and their status
