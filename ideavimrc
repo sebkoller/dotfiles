@@ -19,17 +19,11 @@ noremap Y y$
 " search for visual selection
 vnoremap // y/<C-R>"<CR>
 
-nnoremap ]l :action GotoNextError<cr>
-nnoremap [l :action GotoPreviousError<cr>
-
 " easy system clipboard copy/paste
 noremap <space>y "*y
 noremap <space>Y "*Y
 noremap <space>p "*p
 noremap <space>P "*P
-
-nnoremap g<c-o> :action Back<cr>
-nnoremap g<c-i> :action Forward<cr>
 
 inoremap <c-n> <Down>
 inoremap <c-p> <Up>
@@ -58,10 +52,22 @@ nnoremap <space>C :source ~/.ideavimrc<cr>
 " Navigation
 nnoremap <space>f :action GotoFile<cr>
 nnoremap <space>w :action ActivateProjectToolWindow<cr>
+nnoremap <c-j> :action NextTab<cr>
+nnoremap <c-k> :action PreviousTab<cr>
+nnoremap ]l :action GotoNextError<cr>
+nnoremap [l :action GotoPreviousError<cr>
+nnoremap g<c-o> :action Back<cr>
+nnoremap g<c-i> :action Forward<cr>
+nnoremap g; :action JumpToLastChange<cr>
+nnoremap g, :action JumpToNextChange<cr>
+
 
 " Hide all tool windows
 nnoremap <space>c :action HideAllWindows<cr>
 
 " Flutter
 nnoremap <space>h :action Flutter.Toolbar.ReloadAction<cr>
+
+" Git
+vnoremap <space>gh :action Vcs.ShowHistoryForBlock<cr>
 
